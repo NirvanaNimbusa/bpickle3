@@ -1,0 +1,7 @@
+Testing
+=======
+
+The unit tests cover most cases, and use pytest and hypothesis to be awesome.
+
+1. Make sure tox is installed ("sudo apt-get install tox" on Ubuntu systems).
+2. Invoke "tox" in the top-level directory.

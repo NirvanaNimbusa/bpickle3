@@ -1,6 +1,10 @@
 import unittest
 from hypothesis import given
-from hypothesis.strategies import text
+from hypothesis.strategies import (
+    integers,
+    lists,
+    text,
+)
 
 
 import bpickle
@@ -12,8 +16,9 @@ REAL_ANSWER = (b"ds8:messageslds4:types14:accepted-typess5:typeslu8:register"
 
 class BPickleTest(unittest.TestCase):
 
-    def test_int(self):
-        self.assertEqual(bpickle.loads(bpickle.dumps(1)), 1)
+    @given(integers())
+    def test_int(self, i):
+        assert bpickle.loads(bpickle.dumps(i)) == i
 
     def test_float(self):
         self.assertAlmostEquals(bpickle.loads(bpickle.dumps(2.3)), 2.3)
@@ -23,12 +28,17 @@ class BPickleTest(unittest.TestCase):
         self.assertTrue("e" in repr(number))
         self.assertAlmostEquals(bpickle.loads(bpickle.dumps(number)), number)
 
-    def test_string(self):
-        self.assertEqual(bpickle.loads(bpickle.dumps('foo')), 'foo')
+    @given(text())
+    def test_string(self, s):
+        assert bpickle.loads(bpickle.dumps('foo')) == 'foo'
 
     def test_list(self):
         self.assertEqual(bpickle.loads(bpickle.dumps([1, 2, 'hello', 3.0])),
                          [1, 2, 'hello', 3.0])
+
+    @given(lists(integers()))
+    def test_inverted_lists(self, l):
+        assert bpickle.loads(bpickle.dumps(l)) == l
 
     def test_tuple(self):
         data = bpickle.dumps((1, [], 2, 'hello', 3.0))
@@ -96,7 +106,3 @@ class BPickleTest(unittest.TestCase):
 
         result = bpickle.loads(REAL_ANSWER)
         self.assertEqual(expected, result)
-
-    @given(text())
-    def test_decode_inverts_encode(self, s):
-        assert bpickle.loads(bpickle.dumps(s)) == s
