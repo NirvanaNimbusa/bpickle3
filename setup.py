@@ -7,7 +7,8 @@ from setuptools import find_packages, setup
 setup(
     name='bpickle',
     version='0.0.1',
-    license='GPLv3',
+    license='BSD',
+    # The original code author is credited in the main file.
     author='Chris Glass',
     author_email='chris.glass@canonical.com',
     description='A binary serialization library for python3',

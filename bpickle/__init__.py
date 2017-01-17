@@ -1,5 +1,6 @@
 """
 Copyright (c) 2006, Gustavo Niemeyer <gustavo@niemeyer.net>
+Port to python 3 was done by Chris Glass <chris.glass@canonical.com>
 
 All rights reserved.
 
