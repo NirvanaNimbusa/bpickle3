@@ -30,7 +30,7 @@ class BPickleTest(unittest.TestCase):
 
     @given(text())
     def test_string(self, s):
-        assert bpickle.loads(bpickle.dumps('foo')) == 'foo'
+        assert bpickle.loads(bpickle.dumps(s)) == s
 
     def test_list(self):
         self.assertEqual(bpickle.loads(bpickle.dumps([1, 2, 'hello', 3.0])),
